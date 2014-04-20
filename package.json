@@ -1,0 +1,21 @@
+{
+    "name": "node-simple-treewatch",
+    "version": "0.0.1",
+    "description": "Simple utility for watching directory tree and file changes",
+    "main": "index.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/csabiftw/node-simple-treewatch.git"
+    },
+    "keywords": [
+        "fs",
+        "watch",
+        "tree"
+    ],
+    "author": "csabiftw",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/csabiftw/node-simple-treewatch/issues"
+    },
+    "homepage": "https://github.com/csabiftw/node-simple-treewatch"
+}
