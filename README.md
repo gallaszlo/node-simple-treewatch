@@ -21,8 +21,8 @@ A very simple example for watching a single directory:
 ```javascript
 var watch = new(require('simple-treewatch'))();
 
-watch.addWatch("/home/csaba");
-watch.addWatchAction(function(data) {
+watch.watchTree("/home/csaba");
+watch.addAction(function(data) {
     console.log(data.event + " : " + data.fullPath);
 });
 

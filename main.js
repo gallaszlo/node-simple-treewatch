@@ -34,32 +34,32 @@ var stat = function(opts, cb) {
 
 function SimpleTreeWatch() {
     this.watchList = {};
-    this.watchActions = [];
+    this.actions = [];
 }
 
 SimpleTreeWatch.prototype.setLogLevel = function(level) {
     log.level = level;
 };
 
-SimpleTreeWatch.prototype.addBlacklisted = function(exp, cb) {
+SimpleTreeWatch.prototype.blacklist = function(exp, cb) {
     blacklist[exp] = cb;
 };
 
-SimpleTreeWatch.prototype.addWatchAction = function(action) {
-    this.watchActions.push(action);
+SimpleTreeWatch.prototype.addAction = function(action) {
+    this.actions.push(action);
 };
 
-SimpleTreeWatch.prototype.removeWatch = function(path) {
+SimpleTreeWatch.prototype.cancelWatch = function(path) {
     this.watchList[path].close();
     delete this.watchList[path];
     log.verbose("Cancelled watching: '" + path + "'");
 };
 
-SimpleTreeWatch.prototype.addWatch = function(path) {
+SimpleTreeWatch.prototype.watch = function(path) {
     var self = this;
 
     if (self.watchList[path]) {
-        log.verbose("Already being watched, addWatch cancelled: '" + path + "'");
+        log.verbose("Already being watched, watch cancelled: '" + path + "'");
         return false;
     }
 
@@ -75,17 +75,17 @@ SimpleTreeWatch.prototype.addWatch = function(path) {
             if (!err) {
                 isDir = stat.isDirectory();
                 if (isDir && !isBlacklisted(_path.basename(fullPath)))
-                    self.addWatch(fullPath);
+                    self.watch(fullPath);
             }
 
             if (err && err.code === 'ENOENT') realEvent = 'delete';
             if (!err && (event === 'change' || event === 'rename')) realEvent = 'update';
 
             if (realEvent === 'delete' && self.watchList[fullPath]) {
-                self.removeWatch(fullPath);
+                self.cancelWatch(fullPath);
             }
 
-            self.watchActions.forEach(function(action) {
+            self.actions.forEach(function(action) {
                 action({
                     fsevent: event,
                     event: realEvent,
@@ -111,7 +111,7 @@ SimpleTreeWatch.prototype.addWatch = function(path) {
             if (!isBlacklisted(f))
                 fs.stat(pathToFile, function(err, stat) {
                     if (stat.isDirectory())
-                        self.addWatch(pathToFile);
+                        self.watch(pathToFile);
                 });
         });
     });
