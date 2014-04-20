@@ -3,6 +3,9 @@
     "version": "0.0.1",
     "description": "Simple utility for watching directory tree and file changes",
     "main": "index.js",
+    "dependencies": {
+        "winston": "^0.7.3"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/csabiftw/node-simple-treewatch.git"
