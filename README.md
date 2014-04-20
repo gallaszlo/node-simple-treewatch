@@ -15,8 +15,8 @@ It also aims to keep the number of watches low, while still noticing every file 
     npm install simple-treewatch
 
 # Usage and features
-
-A very simple example for watching a single directory:
+ 
+A very simple example for watching a directory tree and adding an action:
 
 ```javascript
 var watch = new(require('simple-treewatch'))();
