@@ -12,7 +12,6 @@ It also aims to keep the number of watches low, while still noticing every file 
 
 # Install
 
-
     npm install simple-treewatch
 
 # Usage and features
