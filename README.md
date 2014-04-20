@@ -21,14 +21,14 @@ A very simple example for watching a single directory:
 ```javascript
 var watch = new(require('simple-treewatch'))();
 
-watch.watchTree("/home/csaba");
+watch.watch("/home/csaba");
 watch.addAction(function(data) {
     console.log(data.event + " : " + data.fullPath);
 });
 
 ```
 
-The above example starts watching the directory tree, with the root being the path set in the parameter. It handles new subdirectories as well.
+The above example starts watching the directory tree, with the root being the path set in the parameter. It handles new subdirectories as well. You can add any number of actions to be exectued when an event occurs.
 
 ### Logging
 
@@ -38,22 +38,22 @@ To see log messages coming from the watch handler, you can set the logging level
 watch.setLogLevel('verbose');
 ```
 
-You can also blacklist certain files:
-
 ### Blacklisting
 
+You can also blacklist certain files via regexp. This regexp will be matched against the file or directory name.
+
 ```javascript
-watch.addBlacklisted('^[.]');
+watch.blacklist('^[.]');
 ```
 
 In case you want to get a callback when a certain files is blacklisted, it can be done like this:
 
 ```javascript
-watch.addBlacklisted('^[.]', function(filename) {
+watch.blacklist('^[.]', function(filename) {
     console.log('Blacklisted event to hidden file/dir: ' + filename);
 });
 
-watch.addBlacklisted('^~', function(filename) {
+watch.blacklist('^~', function(filename) {
     console.log('Blacklisted event to swap file: ' + filename);
 });
 ```
@@ -64,5 +64,5 @@ Removal of previously started (be it manual or automatic) watches is done automa
 To manually stop watching a given directory:
 
 ```javascript
-watch.removeWatch('/home/csaba');
+watch.cancelWatch('/home/csaba');
 ```
