@@ -53,7 +53,6 @@ SimpleTreeWatch.prototype.removeWatch = function(path) {
     this.watchList[path].close();
     delete this.watchList[path];
     log.verbose("Cancelled watching: '" + path + "'");
-
 };
 
 SimpleTreeWatch.prototype.addWatch = function(path) {
